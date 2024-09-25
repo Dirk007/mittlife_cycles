@@ -1,4 +1,6 @@
 pub mod cache;
+#[cfg(feature = "actixheader")]
+pub mod actix_headers;
 pub mod fetcher;
 pub mod headers;
 pub mod key_collection;
