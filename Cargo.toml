@@ -1,13 +1,10 @@
 [package]
-name = "rusthook"
+name = "mittwald"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-mittwald = { git = "https://github.com/Dirk007/rusthook", branch = "master" }
 anyhow = { version = "1.0.89" }
-tokio = { version = "1.40.0", features = ["rt-multi-thread", "macros", "sync" ]}
-futures = { version = "0.3.30" }
 log = { version = "0.4.17" }
 env_logger = { version = "0.11.5" }
 serde = { version = "1.0.210", features = ["derive"]}   
@@ -16,13 +13,22 @@ base64 = "0.22.1"
 ed25519 = "2.2.3"
 ed25519-dalek = "2.1.1"
 reqwest = { version = "0.12.7", features = ["json"] }
-poem = "3.1.0"
-async-trait = "0.1.83"
+async-trait = { version = "0.1.83" }
+poem = { version="3.1.0", optional = true }
+
+[dev-dependencies]
+tokio = { version = "1.40.0", features = ["rt-multi-thread", "macros", "sync" ]}
+futures = { version = "0.3.30" }
+
 
 [lib]
 name = "mittwald"
 path = "src/lib.rs"
 
-[[bin]]
-name = "samplehooks"
-path = "src/main.rs"
+[[example]]
+name = "simple"
+path = "examples/simple/src/main.rs"
+
+[features]
+default = ["poemheader"]
+poemheader = ["poem"]
