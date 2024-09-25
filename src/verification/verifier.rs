@@ -20,6 +20,7 @@ pub trait Verifier: Send + Sync {
 }
 
 /// An implementation of the Verifier trait for Ed25519.
+#[derive(Debug)]
 pub struct Ed25519Verifier;
 
 impl Default for Ed25519Verifier {

@@ -1,5 +1,4 @@
 mod mock_backend;
-mod verification;
 
 use anyhow::Result;
 
