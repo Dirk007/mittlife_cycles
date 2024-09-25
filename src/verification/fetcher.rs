@@ -8,7 +8,6 @@ const PUBLIC_KEY_ROUTE: &str = "/v2/webhook-public-keys";
 /// Trait for fetching public keys from a server.
 #[async_trait::async_trait]
 pub trait KeyFetcher {
-    fn with_base_url(self, base_url: &str) -> Self;
     async fn fetch(&self, serial: &str) -> Result<PublicKeyResponse>;
 }
 
@@ -35,15 +34,17 @@ impl Default for ReqwestFetcher {
     }
 }
 
-#[async_trait::async_trait]
-impl KeyFetcher for ReqwestFetcher {
-    fn with_base_url(self, base_url: &str) -> Self {
+impl ReqwestFetcher {
+    pub fn with_base_url(self, base_url: &str) -> Self {
         ReqwestFetcher {
             client: self.client,
             base_url: base_url.to_string(),
         }
     }
+}
 
+#[async_trait::async_trait]
+impl KeyFetcher for ReqwestFetcher {
     async fn fetch(&self, serial: &str) -> Result<PublicKeyResponse> {
         let final_url = format!("{}{}/{}", self.base_url, PUBLIC_KEY_ROUTE, serial);
         log::info!("Fetching remote key {} from {}", serial, self.base_url);

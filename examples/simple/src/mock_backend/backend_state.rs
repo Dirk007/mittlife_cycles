@@ -1,7 +1,6 @@
 use anyhow::Result;
 use mittlife_cycles::verification::{
-    fetcher::KeyFetcher, headers::SignatureHeaders, Ed25519Verifier, KeyCollection, MappedHeaders, MemoryCache,
-    ReqwestFetcher, Verifier,
+    headers::SignatureHeaders, Ed25519Verifier, KeyCollection, MappedHeaders, MemoryCache, ReqwestFetcher, Verifier,
 };
 use poem::http::HeaderMap;
 
