@@ -1,6 +1,7 @@
 use std::sync::Arc;
 
 use anyhow::Result;
+use mittlife_cycles::verification::Ed25519Verifier;
 use poem::{
     handler,
     http::{HeaderMap, StatusCode},
@@ -14,7 +15,6 @@ use serde::Deserialize;
 use tokio::sync::Mutex;
 
 use super::backend_state::{new_ed25519_verifier, BackendState};
-use crate::verification::Ed25519Verifier;
 
 #[derive(Deserialize, Debug)]
 #[serde(rename_all = "camelCase")]

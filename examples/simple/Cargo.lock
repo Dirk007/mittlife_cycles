@@ -352,6 +352,23 @@ dependencies = [
 ]
 
 [[package]]
+name = "example"
+version = "0.1.0"
+dependencies = [
+ "anyhow",
+ "base64 0.22.1",
+ "env_logger",
+ "futures",
+ "log",
+ "mittlife_cycles",
+ "poem",
+ "reqwest",
+ "serde",
+ "serde_json",
+ "tokio",
+]
+
+[[package]]
 name = "fastrand"
 version = "2.1.1"
 source = "registry+https://github.com/rust-lang/crates.io-index"
@@ -807,13 +824,11 @@ dependencies = [
  "ed25519",
  "ed25519-dalek",
  "env_logger",
- "futures",
  "log",
  "poem",
  "reqwest",
  "serde",
  "serde_json",
- "tokio",
 ]
 
 [[package]]

@@ -2,6 +2,8 @@ pub mod cache;
 pub mod fetcher;
 pub mod headers;
 pub mod key_collection;
+#[cfg(feature = "poemheader")]
+pub mod poem_headers;
 pub mod public_key;
 pub mod signature;
 pub mod verifier;
