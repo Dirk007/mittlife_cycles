@@ -31,6 +31,6 @@ name = "simple"
 path = "examples/simple/src/main.rs"
 
 [features]
-default = ["poemheader", "actixheader"] # Eigentlich sollte der leer sein, aber ohne inkludiert rustanalyzer den code nicht :(
+default = ["poemheader"]
 poemheader = ["poem"]
 actixheader = ["actix-web"]
