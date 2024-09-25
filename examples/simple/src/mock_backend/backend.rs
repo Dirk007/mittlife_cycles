@@ -1,7 +1,7 @@
 use std::sync::Arc;
 
 use anyhow::Result;
-use mittwald::verification::Ed25519Verifier;
+use mittlife_cycles::verification::Ed25519Verifier;
 use poem::{
     handler,
     http::{HeaderMap, StatusCode},

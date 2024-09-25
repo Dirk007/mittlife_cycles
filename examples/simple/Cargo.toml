@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-mittwald = { path = "../../", features = ["poemheader"]}
+mittlife_cycles = { path = "../../", features = ["poemheader"]}
 anyhow = { version = "1.0.89" }
 tokio = { version = "1.40.0", features = ["rt-multi-thread", "macros", "sync" ]}
 futures = { version = "0.3.30" }

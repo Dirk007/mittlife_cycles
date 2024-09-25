@@ -1,5 +1,5 @@
 [package]
-name = "mittwald"
+name = "mittlife_cycles"
 version = "0.1.0"
 edition = "2021"
 
@@ -22,7 +22,7 @@ futures = { version = "0.3.30" }
 
 
 [lib]
-name = "mittwald"
+name = "mittlife_cycles"
 path = "src/lib.rs"
 
 [[example]]

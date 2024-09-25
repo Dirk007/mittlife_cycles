@@ -360,7 +360,7 @@ dependencies = [
  "env_logger",
  "futures",
  "log",
- "mittwald",
+ "mittlife_cycles",
  "poem",
  "reqwest",
  "serde",
@@ -815,7 +815,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "mittwald"
+name = "mittlife_cycles"
 version = "0.1.0"
 dependencies = [
  "anyhow",

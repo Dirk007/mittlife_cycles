@@ -798,7 +798,7 @@ dependencies = [
 ]
 
 [[package]]
-name = "mittwald"
+name = "mittlife_cycles"
 version = "0.1.0"
 dependencies = [
  "anyhow",
