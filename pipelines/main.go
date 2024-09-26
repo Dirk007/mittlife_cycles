@@ -21,12 +21,20 @@ func (m *MittlifeCycles) Check(
 	return NewCachedRustBuilder(source).Check(ctx)
 }
 
-// Lint verifies that the library code compiles
+// Lint verifies that the library code complies with clippy
 func (m *MittlifeCycles) Lint(
 	ctx context.Context,
 	source *dagger.Directory,
 ) (string, error) {
 	return NewCachedRustBuilder(source).Lint(ctx)
+}
+
+// Test verifies that the library code tests run successfully
+func (m *MittlifeCycles) Test(
+	ctx context.Context,
+	source *dagger.Directory,
+) (string, error) {
+	return NewCachedRustBuilder(source).Test(ctx)
 }
 
 // ExampleSimpleCheck verifies that the code of the simple example compiles
