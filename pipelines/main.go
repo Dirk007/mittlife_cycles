@@ -23,13 +23,14 @@ func (m *MittlifeCycles) Check(
 	}.Check(ctx)
 }
 
-// CheckExampleSimple verifies that the code of the simple example compiles
+// ExampleSimpleCheck verifies that the code of the simple example compiles
 // given the directory at the root of the project
-//func (m *MittlifeCycles) CheckExampleSimple(
-//	ctx context.Context,
-//	source *dagger.Directory,
-//) (string, error) {
-//	return CachedRustBuilder{
-//		source.Directory("examples/simple"),
-//	}.Check(ctx)
-//}
+func (m *MittlifeCycles) ExampleSimpleCheck(
+	ctx context.Context,
+	source *dagger.Directory,
+) (string, error) {
+	return NewCachedRustBuilder(
+		source,
+		WithWorkdir("examples/simple"),
+	).Check(ctx)
+}
