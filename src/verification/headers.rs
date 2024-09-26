@@ -18,6 +18,7 @@ pub trait SignatureHeaders {
 }
 
 /// Simple implementation of SignatureHeaders.
+#[derive(Debug)]
 pub struct MappedHeaders {
     pub serial: String,
     pub algorithm: String,

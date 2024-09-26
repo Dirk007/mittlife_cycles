@@ -1,20 +1,20 @@
+use actix_web::http::header::HeaderMap;
 use anyhow::anyhow;
-use poem::http::HeaderMap;
 
-use super::headers::MappedHeaders;
+use super::MappedHeaders;
 
 impl TryFrom<&HeaderMap> for MappedHeaders {
     type Error = anyhow::Error;
 
     fn try_from(headers: &HeaderMap) -> Result<Self, Self::Error> {
         let serial = extract_header(headers, "X-Marketplace-Signature-Serial")?;
-        let algorithm = extract_header(headers, "X-Marketplace-Signature-Algorithm")?;
-        let signature = extract_header(headers, "X-Marketplace-Signature")?;
+        let algorithm = extract_header(headers, "X-Marketplace-Signature-Serial")?;
+        let signature = extract_header(headers, "X-Marketplace-Signature-Serial")?;
 
         Ok(MappedHeaders {
-            signature,
-            algorithm,
             serial,
+            algorithm,
+            signature,
         })
     }
 }
