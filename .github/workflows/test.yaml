@@ -1,0 +1,19 @@
+name: Run extensive library tests
+
+on: push
+
+jobs:
+  test:
+    name: Run tests
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Run tests
+        uses: dagger/dagger-for-github@v6
+        with:
+          version: "latest"
+          verb: call
+          args: build-and-test-all --source=.
+          # TODO: shit, so weit habe ich nicht gedacht cloud-token: ${{ secrets.DAGGER_CLOUD_TOKEN }}
