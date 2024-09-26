@@ -1,11 +1,31 @@
-# WIP
+<img src="assets/logo.png" width="200" align="left" style="margin: 4px; align: left;" /> 
 
-## What is it?
+# mittlife_cycles
 
-This is a repository in development to verify mittwald marketplace signatures.
+**the mittwald extension signature verifier.**
+
+## Purpose
+
+mittlife_cycles is a crate to verify mittwald marketplace signatures for your extension backends written in `rust`.
 
 ## Sample
 
-The sample backend implemented here does NOTHING beside verifying the signature. It is using poem. Implement the needed traits (see [backend](./src/mock_backend/backend_state.rs)) and be happy.
+The sample backend implemented here does NOTHING beside verifying the signature. 
+
+To run the simple example using poem use
+```bash
+cargo run --example simple
+```
+
+## Features
+
+mittlife_cycles comes with feature flags to add built-in header-support different web-frameworks:
+- poemheader - For [poem](https://github.com/poem-web/poem) - `default`
+- actixheadewr - for [actix](https://actix.rs/)
+
+
+### License
+
+[MIT](LICENSE)
 
 Cheers
