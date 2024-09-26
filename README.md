@@ -4,6 +4,9 @@
 
 **the mittwald extension signature verifier.**
 
+<br>
+<hr>
+
 ## Purpose
 
 mittlife_cycles is a crate to verify mittwald marketplace signatures for your extension backends written in `rust`.
