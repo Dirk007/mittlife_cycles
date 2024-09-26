@@ -52,6 +52,16 @@ func (c CachedRustBuilder) Lint(ctx context.Context) (string, error) {
 		Stdout(ctx)
 }
 
+func (c CachedRustBuilder) Build(
+	ctx context.Context,
+	binaryName string,
+) *dagger.File {
+	return c.Container().
+		WithExec([]string{"cargo", "build", "--release"}).
+		WithExec([]string{"cp", "target/release/" + binaryName, binaryName}).
+		File(binaryName)
+}
+
 func (c CachedRustBuilder) Container() *dagger.Container {
 	source := c.source.
 		WithoutDirectory("target").

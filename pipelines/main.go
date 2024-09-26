@@ -2,7 +2,6 @@ package main
 
 import (
 	"context"
-	"fmt"
 
 	"dagger/mittlife-cycles/internal/dagger"
 )
@@ -92,4 +91,23 @@ func (m *MittlifeCycles) CheckExamples(
 	}
 
 	return nil
+}
+
+// BuildExample builds the executable of an example
+func (m *MittlifeCycles) BuildExample(
+	ctx context.Context,
+	source *dagger.Directory,
+	example string,
+	// +optional
+	binaryName *string,
+) *dagger.File {
+	exampleBinaryName := example
+	if binaryName != nil {
+		exampleBinaryName = *binaryName
+	}
+
+	return NewCachedRustBuilder(
+		source,
+		WithWorkdir("examples/"+example),
+	).Build(ctx, exampleBinaryName)
 }
