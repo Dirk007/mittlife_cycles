@@ -18,9 +18,15 @@ func (m *MittlifeCycles) Check(
 	ctx context.Context,
 	source *dagger.Directory,
 ) (string, error) {
-	return CachedRustBuilder{
-		source,
-	}.Check(ctx)
+	return NewCachedRustBuilder(source).Check(ctx)
+}
+
+// Lint verifies that the library code compiles
+func (m *MittlifeCycles) Lint(
+	ctx context.Context,
+	source *dagger.Directory,
+) (string, error) {
+	return NewCachedRustBuilder(source).Lint(ctx)
 }
 
 // ExampleSimpleCheck verifies that the code of the simple example compiles
