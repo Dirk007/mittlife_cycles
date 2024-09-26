@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 
 	"dagger/mittlife-cycles/internal/dagger"
 )
@@ -33,7 +34,7 @@ func (m *MittlifeCycles) BuildAndTestAll(
 		return err
 	}
 
-	_, err = m.ExampleSimpleCheck(ctx, source)
+	err = m.CheckExamples(ctx, source)
 	if err != nil {
 		return err
 	}
@@ -67,14 +68,28 @@ func (m *MittlifeCycles) Test(
 	return NewCachedRustBuilder(source).Test(ctx)
 }
 
-// ExampleSimpleCheck verifies that the code of the simple example compiles
-// given the directory at the root of the project
-func (m *MittlifeCycles) ExampleSimpleCheck(
+// CheckExamples verifies that all examples compile
+func (m *MittlifeCycles) CheckExamples(
 	ctx context.Context,
 	source *dagger.Directory,
-) (string, error) {
-	return NewCachedRustBuilder(
-		source,
-		WithWorkdir("examples/simple"),
-	).Check(ctx)
+) error {
+	exampleNames, err := source.Entries(ctx, dagger.DirectoryEntriesOpts{
+		Path: "examples",
+	})
+	if err != nil {
+		return err
+	}
+
+	for _, exampleName := range exampleNames {
+		_, err := NewCachedRustBuilder(
+			source,
+			WithWorkdir("examples/"+exampleName),
+		).Check(ctx)
+
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
