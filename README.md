@@ -24,7 +24,7 @@ cargo run --example simple
 
 mittlife_cycles comes with feature flags to add built-in header-support different web-frameworks:
 - poemheader - For [poem](https://github.com/poem-web/poem) - `default`
-- actixheadewr - for [actix](https://actix.rs/)
+- actixheader - for [actix](https://actix.rs/)
 
 
 ### License
