@@ -1,11 +1,14 @@
 use std::collections::HashMap;
 
 use anyhow::Result;
+#[cfg(test)]
+use mockall::automock;
 
 use super::public_key::PublicKey;
 
 const DEFAULT_CACHE_MAX_AGE: std::time::Duration = std::time::Duration::from_secs(60 * 60 * 24 * 30);
 
+#[cfg_attr(test, automock)]
 #[async_trait::async_trait]
 pub trait Cache<K: PublicKey + Clone> {
     /// Returns an Option containing the public key for the given serial, or None if not found in the cache
