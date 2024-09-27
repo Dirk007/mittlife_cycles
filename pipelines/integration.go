@@ -17,19 +17,16 @@ func (m *MittlifeCycles) TestIntegration(
 
 	// Need two of those because dependencies between services have to be a DAG (directed acyclic graph)
 	// problem: key serial is random
-	localDevServiceKeyProvider := dag.Container().
-		From("mittwald/marketplace-local-dev-server:1.3.6").
-		WithFile(".env", dotEnv).
-		AsService()
+	localDevServiceKeyProvider := localDevContainer(dotEnv).AsService()
 
-	exampleService := buildContainerWithEnv(ctx, executable, dotEnv).
+	exampleService := baseServerContainer(executable, dotEnv).
+		WithExposedPort(8090).
 		WithServiceBinding("key-provider", localDevServiceKeyProvider).
+		WithExec([]string{"/server"}).
 		AsService()
 
-	localDevService := dag.Container().
-		From("mittwald/marketplace-local-dev-server:1.3.6").
+	localDevService := localDevContainer(dotEnv).
 		WithServiceBinding("example-service", exampleService).
-		WithFile(".env", dotEnv).
 		AsService()
 
 	return integrationTestRunner(
@@ -38,25 +35,10 @@ func (m *MittlifeCycles) TestIntegration(
 	).Stdout(ctx)
 }
 
-func buildContainerWithEnv(
-	ctx context.Context,
-	executable *dagger.File,
-	dotEnv *dagger.File,
-) *dagger.Container {
+func localDevContainer(dotEnv *dagger.File) *dagger.Container {
 	return dag.Container().
-		From("debian:bookworm-slim").
-
-		// Install Dependencies
-		WithExec([]string{"apt-get", "update"}).
-		WithExec([]string{"apt-get", "install", "-y", "libssl3", "ca-certificates"}).
-		WithExec([]string{"rm", "-rf", "/var/lib/apt/lists/*"}).
-
-		// Application
-		WithExposedPort(8090).
-		WithFile("/app/.env", dotEnv).
-		WithFile("/app/server", executable).
-		WithWorkdir("/app").
-		WithExec([]string{"/app/server"})
+		From("mittwald/marketplace-local-dev-server:1.3.6").
+		WithFile(".env", dotEnv)
 }
 
 func integrationTestRunner(
