@@ -5,6 +5,7 @@ pub const ED25519_PUBLIC_KEY_LENGTH: usize = 32;
 
 pub trait PublicKey: Send + Sync + Clone + TryFrom<String> {
     fn len(&self) -> usize;
+    fn is_empty(&self) -> bool;
     fn get_bytes(&self) -> &[u8];
     fn age(&self) -> std::time::Duration;
 }
@@ -18,6 +19,10 @@ pub struct ED25519PublicKey {
 impl PublicKey for ED25519PublicKey {
     fn len(&self) -> usize {
         ED25519_PUBLIC_KEY_LENGTH
+    }
+
+    fn is_empty(&self) -> bool {
+        self.len() == 0
     }
 
     fn get_bytes(&self) -> &[u8] {

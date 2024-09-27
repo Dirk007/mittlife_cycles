@@ -20,14 +20,8 @@ pub trait Verifier: Send + Sync {
 }
 
 /// An implementation of the Verifier trait for Ed25519.
-#[derive(Debug)]
+#[derive(Debug, Default)]
 pub struct Ed25519Verifier;
-
-impl Default for Ed25519Verifier {
-    fn default() -> Self {
-        Ed25519Verifier {}
-    }
-}
 
 impl Verifier for Ed25519Verifier {
     type KeyType = ED25519PublicKey;
@@ -47,11 +41,11 @@ impl Verifier for Ed25519Verifier {
             bail!("unsupported public key length for ed25519");
         }
         let key: Box<[u8]> = key.get_bytes().into();
-        verify_signature_bytes(body.as_ref(), signature, key)
+        verify_signature_bytes(body.as_ref(), signature, &key)
     }
 }
 
-fn verify_signature_bytes(message: &[u8], signature: Ed25519Signature, public_key: Box<[u8]>) -> Result<()> {
+fn verify_signature_bytes(message: &[u8], signature: Ed25519Signature, public_key: &[u8]) -> Result<()> {
     let key = public_key
         .first_chunk::<32>()
         .ok_or(anyhow!("invalid public key length"))?;
