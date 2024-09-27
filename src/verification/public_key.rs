@@ -9,6 +9,7 @@ pub trait PublicKey: Send + Sync + Clone + TryFrom<String> {
     fn get_bytes(&self) -> &[u8];
     fn age(&self) -> std::time::Duration;
 }
+
 /// A public key fetched from the server.
 #[derive(Clone)]
 pub struct ED25519PublicKey {

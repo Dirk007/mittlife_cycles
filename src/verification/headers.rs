@@ -1,12 +1,15 @@
 use std::{borrow::Borrow, collections::HashMap};
 
 use anyhow::{anyhow, Error, Result};
+#[cfg(test)]
+use mockall::automock;
 
 const MARKETPLACE_HEADER_SIGNATURE: &str = "X-Marketplace-Signature";
 const MARKETPLACE_HEADER_ALGORITHM: &str = "X-Marketplace-Signature-Algorithm";
 const MARKETPLACE_HEADER_SERIAL: &str = "X-Marketplace-Signature-Serial";
 
 /// Trait for headers that contain signature, algorithm, and serial information.
+#[cfg_attr(test, automock)]
 pub trait SignatureHeaders {
     /// Get the signature value.
     fn get_signature(&self) -> &str;

@@ -1,4 +1,6 @@
 use anyhow::{bail, Result};
+#[cfg(test)]
+use mockall::automock;
 use serde::Deserialize;
 
 const DEFAULT_FETCH_TIMEOUT: std::time::Duration = std::time::Duration::from_secs(6);
@@ -6,6 +8,7 @@ const DEFAULT_MITTWALD_BASE_URL: &str = "https://api.mittwald.de";
 const PUBLIC_KEY_ROUTE: &str = "/v2/webhook-public-keys";
 
 /// Trait for fetching public keys from a server.
+#[cfg_attr(test, automock)]
 #[async_trait::async_trait]
 pub trait KeyFetcher {
     async fn fetch(&self, serial: &str) -> Result<PublicKeyResponse>;
