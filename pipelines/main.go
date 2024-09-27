@@ -38,6 +38,16 @@ func (m *MittlifeCycles) BuildAndTestAll(
 		return err
 	}
 
+	err = m.LintExamples(ctx, source)
+	if err != nil {
+		return err
+	}
+
+	err = m.TestExamples(ctx, source)
+	if err != nil {
+		return err
+	}
+
 	// TODO: integration test
 
 	return nil
@@ -59,43 +69,10 @@ func (m *MittlifeCycles) Lint(
 	return CachedRustBuilder{source}.Lint(ctx)
 }
 
-// Test verifies that the library code tests run successfully
+// Test verifies that the library code unit tests run successfully
 func (m *MittlifeCycles) Test(
 	ctx context.Context,
 	source *dagger.Directory,
 ) (string, error) {
 	return CachedRustBuilder{source}.Test(ctx)
-}
-
-// CheckExamples verifies that all examples compile
-func (m *MittlifeCycles) CheckExamples(
-	ctx context.Context,
-	source *dagger.Directory,
-) error {
-	exampleNames, err := source.Entries(ctx, dagger.DirectoryEntriesOpts{
-		Path: "examples",
-	})
-	if err != nil {
-		return err
-	}
-
-	builder := CachedRustBuilder{source}
-	for _, exampleName := range exampleNames {
-		_, err := builder.CheckExample(ctx, exampleName)
-
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-// BuildExample builds the executable of an example
-func (m *MittlifeCycles) BuildExample(
-	ctx context.Context,
-	source *dagger.Directory,
-	example string,
-) *dagger.File {
-	return CachedRustBuilder{source}.BuildExample(example)
 }

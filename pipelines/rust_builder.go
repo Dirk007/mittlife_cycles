@@ -45,6 +45,19 @@ func (c CachedRustBuilder) CheckExample(
 		Stdout(ctx)
 }
 
+func (c CachedRustBuilder) LintExample(
+	ctx context.Context,
+	example string,
+) (string, error) {
+	return c.Container().
+		WithExec([]string{
+			"cargo", "clippy",
+			"--example", example,
+			"--", "-D", "warnings",
+		}).
+		Stdout(ctx)
+}
+
 func (c CachedRustBuilder) BuildExample(example string) *dagger.File {
 	return c.Container().
 		WithExec([]string{"cargo", "build", "--release", "--example", example}).
