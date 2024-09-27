@@ -45,7 +45,7 @@ pub async fn run_server(addr: &str, mittwald_base_url: &str) -> Result<()> {
     let state = Arc::new(Mutex::new(new_ed25519_verifier(mittwald_base_url)));
 
     let app = Route::new()
-        .at("/v1//backend", post(backend_mock_handler))
+        .at("/v1/backend", post(backend_mock_handler))
         .with(Tracing)
         .with(AddData::new(state));
 

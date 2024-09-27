@@ -11,7 +11,7 @@ async fn main() -> Result<()> {
     let version = env!("CARGO_PKG_VERSION");
     log::info!("rusthook test-example {}", version);
 
-    mock_backend::run_server("127.0.0.1:8090", "http://127.0.0.1:8080").await?;
+    mock_backend::run_server("0.0.0.0:8090", "http://key-provider:8080").await?;
 
     Ok(())
 }
