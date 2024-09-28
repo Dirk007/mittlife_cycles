@@ -30,7 +30,7 @@ func (m *MittlifeCycles) TestIntegrationWip(
 		WithServiceBinding("example-service", exampleService).
 		AsService()
 
-	return integrationTestRunner(
+	return buildIntegrationTestRunner(
 		source.Directory("integration"),
 		localDevService,
 	).Stdout(ctx)
@@ -74,7 +74,16 @@ func localDevContainer(dotEnv *dagger.File) *dagger.Container {
 		WithFile(".env", dotEnv)
 }
 
-func integrationTestRunner(
+func (m *MittlifeCycles) DriveIntegrationTests(
+	ctx context.Context,
+	source *dagger.Directory,
+	localDevService *dagger.Service,
+) (string, error) {
+	return buildIntegrationTestRunner(source, localDevService).
+		Stdout(ctx)
+}
+
+func buildIntegrationTestRunner(
 	source *dagger.Directory,
 	localDevService *dagger.Service,
 ) *dagger.Container {

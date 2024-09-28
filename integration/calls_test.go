@@ -71,7 +71,7 @@ func defaultWebhookCallConfiguration() WebhookCallConfiguration {
 		},
 		ExtensionResponse: ExtensionResponse{
 			StatusCode: 200,
-			Body:       "Ok",
+			Body:       "",
 			Successful: true,
 		},
 	}
