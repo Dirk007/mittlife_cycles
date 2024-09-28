@@ -55,8 +55,7 @@ impl KeyFetcher for ReqwestFetcher {
             .fetch_mode_no_cors()
             .timeout(DEFAULT_FETCH_TIMEOUT)
             .send()
-            .await
-            .inspect_err(|err| log::info!("blablub error: {:?}", err))?;
+            .await?;
         log::info!("Response status from fetch: {}", response.status());
         if response.status() != reqwest::StatusCode::OK {
             bail!("failed to fetch content. HTTP status {}", response.status());
