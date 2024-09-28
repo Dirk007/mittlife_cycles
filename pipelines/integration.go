@@ -2,18 +2,21 @@ package main
 
 import (
 	"context"
+	"fmt"
 
 	"dagger/mittlife-cycles/internal/dagger"
 )
+
+const LocalDevServerVersion = "1.3.6"
 
 func (m *MittlifeCycles) TestIntegrationWip(
 	ctx context.Context,
 	source *dagger.Directory,
 ) (string, error) {
 	example := "simple"
+	dotEnv := getEnvFile(source, example)
 
 	executable := m.BuildExample(ctx, source, example)
-	dotEnv := source.File("examples/" + example + "/.env")
 
 	// Need two of those because dependencies between services have to be a DAG (directed acyclic graph)
 	// problem: key serial is random
@@ -42,9 +45,9 @@ func (m *MittlifeCycles) SimpleExampleService(
 	localDevService *dagger.Service,
 ) *dagger.Service {
 	example := "simple"
+	dotEnv := getEnvFile(source, example)
 
 	executable := m.BuildExample(ctx, source, example)
-	dotEnv := source.File("examples/" + example + "/.env")
 
 	return baseServerContainer(executable, dotEnv).
 		WithServiceBinding("local-dev", localDevService).
@@ -58,19 +61,22 @@ func (m *MittlifeCycles) LocalDevService(
 	exampleService *dagger.Service,
 ) *dagger.Service {
 	example := "simple"
-
-	dotEnv := source.File("examples/" + example + "/.env")
+	dotEnv := getEnvFile(source, example)
 
 	return dag.Container().
-		From("mittwald/marketplace-local-dev-server:1.3.6").
+		From("mittwald/marketplace-local-dev-server:"+LocalDevServerVersion).
 		WithFile(".env", dotEnv).
 		WithServiceBinding("example-service", exampleService).
 		AsService()
 }
 
+func getEnvFile(source *dagger.Directory, example string) *dagger.File {
+	return source.File(fmt.Sprintf("examples/%s/.env", example))
+}
+
 func localDevContainer(dotEnv *dagger.File) *dagger.Container {
 	return dag.Container().
-		From("mittwald/marketplace-local-dev-server:1.3.6").
+		From("mittwald/marketplace-local-dev-server:"+LocalDevServerVersion).
 		WithFile(".env", dotEnv)
 }
 
