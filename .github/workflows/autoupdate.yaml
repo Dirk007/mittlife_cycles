@@ -3,6 +3,7 @@ name: Update Dependencies
 on:
   schedule:
     - cron: "0 3 28 * *"
+  push: {}
 
 jobs:
   update-deps:
