@@ -17,3 +17,15 @@ func TestWebhooks(t *testing.T) {
 func (s *WebhooksTestSuite) TestAddingExtensionToContext() {
 	s.assertWebhookCall("extensionAddedToContext")
 }
+
+func (s *WebhooksTestSuite) TestRotatingSecret() {
+	s.assertWebhookCall("secretRotated")
+}
+
+func (s *WebhooksTestSuite) TestUpdatingExtensionInstance() {
+	s.assertWebhookCall("instanceUpdated")
+}
+
+func (s *WebhooksTestSuite) TestRemovingExtensionInstanceFromContext() {
+	s.assertWebhookCall("instanceRemovedFromContext")
+}
