@@ -2,6 +2,7 @@ package main
 
 import (
 	"context"
+	"fmt"
 
 	"dagger/mittlife-cycles/internal/dagger"
 )
@@ -72,7 +73,13 @@ func (c CachedRustBuilder) Container() *dagger.Container {
 		WithoutDirectory("examples/*/target")
 
 	return dag.Container().
-		From("rust:"+RustVersion).
+		From(fmt.Sprintf("rust:%s-alpine", RustVersion)).
+		WithExec([]string{"apk", "update"}).
+		WithExec([]string{
+			"apk", "add", "--no-cache",
+			"pkgconfig", "musl-dev",
+			"openssl-dev", "openssl-libs-static",
+		}).
 		WithExec([]string{"rustup", "component", "add", "clippy"}).
 
 		// Source Code
