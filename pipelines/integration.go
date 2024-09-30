@@ -9,7 +9,8 @@ import (
 
 const LocalDevServerVersion = "1.3.6"
 
-func (m *MittlifeCycles) TestIntegrationWip(
+/* TODO: make integration tests dagger native
+func (m *MittlifeCycles) TestIntegrationFuture(
 	ctx context.Context,
 	source *dagger.Directory,
 ) (string, error) {
@@ -38,6 +39,7 @@ func (m *MittlifeCycles) TestIntegrationWip(
 		localDevService,
 	).Stdout(ctx)
 }
+*/
 
 func (m *MittlifeCycles) SimpleExampleService(
 	ctx context.Context,
