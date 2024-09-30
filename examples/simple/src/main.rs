@@ -1,3 +1,4 @@
+#[allow(clippy::default_constructed_unit_structs)]
 mod mock_backend;
 
 use anyhow::Result;

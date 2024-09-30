@@ -16,7 +16,7 @@ pub fn new_ed25519_verifier(base_url: &str) -> BackendState<Ed25519Verifier> {
             MemoryCache::default(),
             ReqwestFetcher::default().with_base_url(base_url),
         ),
-        Ed25519Verifier {},
+        Ed25519Verifier::default(),
     )
 }
 
