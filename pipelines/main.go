@@ -38,6 +38,16 @@ func (m *MittlifeCycles) BuildAndTestAll(
 		return err
 	}
 
+	err = m.LintExamples(ctx, source)
+	if err != nil {
+		return err
+	}
+
+	err = m.TestExamples(ctx, source)
+	if err != nil {
+		return err
+	}
+
 	// TODO: integration test
 
 	return nil
@@ -48,7 +58,7 @@ func (m *MittlifeCycles) Check(
 	ctx context.Context,
 	source *dagger.Directory,
 ) (string, error) {
-	return NewCachedRustBuilder(source).Check(ctx)
+	return CachedRustBuilder{source}.Check(ctx)
 }
 
 // Lint verifies that the library code complies with clippy
@@ -56,58 +66,13 @@ func (m *MittlifeCycles) Lint(
 	ctx context.Context,
 	source *dagger.Directory,
 ) (string, error) {
-	return NewCachedRustBuilder(source).Lint(ctx)
+	return CachedRustBuilder{source}.Lint(ctx)
 }
 
-// Test verifies that the library code tests run successfully
+// Test verifies that the library code unit tests run successfully
 func (m *MittlifeCycles) Test(
 	ctx context.Context,
 	source *dagger.Directory,
 ) (string, error) {
-	return NewCachedRustBuilder(source).Test(ctx)
-}
-
-// CheckExamples verifies that all examples compile
-func (m *MittlifeCycles) CheckExamples(
-	ctx context.Context,
-	source *dagger.Directory,
-) error {
-	exampleNames, err := source.Entries(ctx, dagger.DirectoryEntriesOpts{
-		Path: "examples",
-	})
-	if err != nil {
-		return err
-	}
-
-	for _, exampleName := range exampleNames {
-		_, err := NewCachedRustBuilder(
-			source,
-			WithWorkdir("examples/"+exampleName),
-		).Check(ctx)
-
-		if err != nil {
-			return err
-		}
-	}
-
-	return nil
-}
-
-// BuildExample builds the executable of an example
-func (m *MittlifeCycles) BuildExample(
-	ctx context.Context,
-	source *dagger.Directory,
-	example string,
-	// +optional
-	binaryName *string,
-) *dagger.File {
-	exampleBinaryName := example
-	if binaryName != nil {
-		exampleBinaryName = *binaryName
-	}
-
-	return NewCachedRustBuilder(
-		source,
-		WithWorkdir("examples/"+example),
-	).Build(ctx, exampleBinaryName)
+	return CachedRustBuilder{source}.Test(ctx)
 }
