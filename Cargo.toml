@@ -1,7 +1,12 @@
 [package]
 name = "mittlife_cycles"
+description = "the mittwald extension signature verifier"
 version = "0.1.0"
 edition = "2021"
+authors = ["Dirk Faust <dirk@faustbande.de>", "Fabian Weik <fabian.weik@protonmail.com>"]
+license = "MIT"
+repository = "https://github.com/Dirk007/mittlife_cycles"
+keywords = ["mittwald", "marketplace", "verification", "webhooks"]
 
 [dependencies]
 anyhow = { version = "1.0.89" }
