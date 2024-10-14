@@ -13,19 +13,19 @@ type CachedRustBuilder struct {
 
 func (c CachedRustBuilder) Check(ctx context.Context) (string, error) {
 	return c.Container().
-		WithExec([]string{"cargo", "check"}).
+		WithExec([]string{"cargo", "check", "--all-features"}).
 		Stdout(ctx)
 }
 
 func (c CachedRustBuilder) Test(ctx context.Context) (string, error) {
 	return c.Container().
-		WithExec([]string{"cargo", "test"}).
+		WithExec([]string{"cargo", "test", "--all-features"}).
 		Stdout(ctx)
 }
 
 func (c CachedRustBuilder) Lint(ctx context.Context) (string, error) {
 	return c.Container().
-		WithExec([]string{"cargo", "clippy", "--", "-D", "warnings"}).
+		WithExec([]string{"cargo", "clippy", "--all-features", "--", "-D", "warnings"}).
 		Stdout(ctx)
 }
 

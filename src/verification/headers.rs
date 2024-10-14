@@ -4,9 +4,9 @@ use anyhow::{anyhow, Error, Result};
 #[cfg(test)]
 use mockall::automock;
 
-const MARKETPLACE_HEADER_SIGNATURE: &str = "X-Marketplace-Signature";
-const MARKETPLACE_HEADER_ALGORITHM: &str = "X-Marketplace-Signature-Algorithm";
-const MARKETPLACE_HEADER_SERIAL: &str = "X-Marketplace-Signature-Serial";
+pub const MARKETPLACE_HEADER_SIGNATURE: &str = "X-Marketplace-Signature";
+pub const MARKETPLACE_HEADER_ALGORITHM: &str = "X-Marketplace-Signature-Algorithm";
+pub const MARKETPLACE_HEADER_SERIAL: &str = "X-Marketplace-Signature-Serial";
 
 /// Trait for headers that contain signature, algorithm, and serial information.
 #[cfg_attr(test, automock)]
