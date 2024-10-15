@@ -4,6 +4,7 @@ use anyhow::{anyhow, Result};
 
 use super::{cache::Cache, fetcher::KeyFetcher, public_key::PublicKey};
 
+#[derive(Debug, Clone)]
 pub struct KeyCollection<C, K, F> {
     phantom_data: PhantomData<K>,
     cache: C,
