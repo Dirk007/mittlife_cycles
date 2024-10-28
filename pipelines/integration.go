@@ -7,7 +7,7 @@ import (
 	"dagger/mittlife-cycles/internal/dagger"
 )
 
-const LocalDevServerVersion = "1.3.26"
+const LocalDevServerVersion = "latest"
 
 /* TODO: make integration tests dagger native
 func (m *MittlifeCycles) TestIntegrationFuture(
