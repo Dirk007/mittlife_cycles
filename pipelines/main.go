@@ -48,7 +48,10 @@ func (m *MittlifeCycles) BuildAndTestAll(
 		return err
 	}
 
-	// TODO: integration test
+	_, err = m.TestIntegration(ctx, source)
+	if err != nil {
+		return err
+	}
 
 	return nil
 }
